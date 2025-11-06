@@ -28,6 +28,13 @@ app.put("/productos/:id", (req, res) => {
   res.json(productos[index]);
 });
 
+app.delete("/productos/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = productos.findIndex(p => p.id === id);
+  if (index === -1) return res.status(404).json({ mensaje: "Producto no encontrado" });
 
+  productos.splice(index, 1);
+  res.json({ mensaje: "Producto eliminado" });
+});
 
 app.listen(3000, () => console.log("Servidor corriendo en http://localhost:3000"));
