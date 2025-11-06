@@ -19,5 +19,15 @@ app.post("/productos", (req, res) => {
   res.status(201).json(nuevo);
 });
 
+app.put("/productos/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = productos.findIndex(p => p.id === id);
+  if (index === -1) return res.status(404).json({ mensaje: "Producto no encontrado" });
+
+  productos[index] = { ...productos[index], ...req.body };
+  res.json(productos[index]);
+});
+
+
 
 app.listen(3000, () => console.log("Servidor corriendo en http://localhost:3000"));
